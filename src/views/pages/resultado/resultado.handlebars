@@ -29,8 +29,11 @@
     </table>
     <!--CODIGO PARA ATUALIZAR DADOS DINAMICAMENTE SEM PRECISAR CARREGAR PAGINA -->
     <script>
+        const containerDataResult = document.querySelector('#data-result');
+        //URL BASE:
         const url_api = "http://localhost:3000/api";
 
+        //PEGAR DADOS:
         async function getAllResult () {
             return await fetch(`${url_api}/get-all-resultado`).then(response => response.json());
         }
@@ -49,19 +52,56 @@
             return tr;
         }
 
-        async function loadDataResult () {
-            const containerData = document.querySelector('#data-result');
-            const allResult = await getAllResult();
-            for(const result of allResult) {
+        function clearTable (){
+            const tds = containerDataResult.querySelectorAll('tr');
+            for(const td of tds) td.remove();
+        }
+
+        function updateTable(response){
+            //LIMPAR TDS:
+            clearTable();
+            //CRIA OS ELEMENTOS:
+            for(const datas of response) {
                 const tds = [];
-                for(const data in result){
-                    tds.push(createTD(result[data]));
+                for(const data in datas){
+                    tds.push(createTD(datas[data]));  
                 }
-                result.media >= 6 ? tds.push(createTD('Aprovado')) : tds.push(createTD('Reprovado'));
-                containerData.appendChild(createTr(tds));
+                datas.media >= 6 ? tds.push(createTD('Aprovado')) : tds.push(createTD('Reprovado'));
+                //INCLUIR NA VIEW OS ELEMENTOS:
+                containerDataResult.appendChild(createTr(tds));
             }
         }
 
+        //FILTRO DE STATUS:
+        async function filter_status () {
+            const selectFilter = document.querySelector('select[name="filter-result"]');
+            selectFilter.addEventListener('change', async (event) => {
+                const selectValue = event.target.value;
+                if(selectValue) {
+                    const allResult = await getAllResult();
+                    const data = allResult.filter((element) => {
+                        if(selectValue == "aprovados") return element.media > 5;
+                        return element.media < 6;
+                    })
+                    updateTable(data);
+                } else {
+                    loadDataResult ()
+                }
+            })
+        }
+
+
+
+        async function loadDataResult (filter, data) { 
+            //PEGA AS TDS:
+            const allResult = await getAllResult();
+            //CARREGAR DADOS:
+            updateTable(allResult);
+            //FILTRO:
+            filter_status ();
+        }
+        
+        
         loadDataResult();
     </script>
 </main>
