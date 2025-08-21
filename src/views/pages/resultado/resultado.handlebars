@@ -60,6 +60,8 @@
         function updateTable(response){
             //LIMPAR TDS:
             clearTable();
+            response = response.filter( el => parseInt(el.media));
+            console.log(response);
             //CRIA OS ELEMENTOS:
             for(const datas of response) {
                 const tds = [];
