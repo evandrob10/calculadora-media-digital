@@ -1,6 +1,10 @@
+main{
+    min-height: 80vh;
+}
 th{
     border-bottom: 2px solid;
 }
 td{
     text-align: center;
+    color: #0000008a;
 }

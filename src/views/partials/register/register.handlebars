@@ -1,0 +1,15 @@
+<div id="conteinerForm" class="absolute bg-[#0000008a] h-screen w-[100vw] flex items-center justify-center hidden">
+    <div class="absolute top-15 right-10 ">
+        <button  onclick="viewForm()" type="button" class="text-white cursor-pointer">FECHAR</button>
+    </div>
+    <form action="" class="flex">
+        <input class="border-2 py-2 px-3 rounded-2xl w-[30vw] mr-2 text-white" type="text" placeholder="Digite nome do aluno...">
+        <button type="button" class="mr-2 bg-white text-black py-2 px-3 rounded-2xl font-bold cursor-pointer duration-200 hover:scale-110">CADASTRAR</button>
+    </form>
+    <!---->
+    <script>
+        function viewForm () {
+            document.querySelector('#conteinerForm').classList.toggle('hidden');
+        } 
+    </script>
+</div>

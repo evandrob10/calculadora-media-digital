@@ -1,0 +1,38 @@
+<main>
+    <div class="mx-auto w-[50%] flex items-center justify-between mb-5">
+        <h1>PAINEL ALUNO</h1>
+        <button onclick="viewForm()" type="button" class="mr-2 bg-black text-white py-2 px-3 rounded-2xl font-bold cursor-pointer duration-200 hover:scale-110">CADASTRAR</button>
+    </div>
+    <table class="mx-auto w-[50%]">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>MEDIA</th>
+                <th>AÇÕES</th>
+            </tr>
+            {{#if response}}
+                {{#each response}}
+                    <tr>
+                        <td>{{id}}</td>
+                        <td class="py-3">{{name}}</td>
+                        <td>
+                            {{#if media}}
+                                {{media}}
+                                {{else}}
+                                <p class="mx-auto w-[35%] rounded-2xl font-bold bg-[red] text-white py-1 px-2 animate-pulse cursor-pointer">SEM MEDIA</p>
+                            {{/if}}
+                        </td>
+                        <td>
+                            <img src="./img/delete.svg" class="w-[30px] mx-auto cursor-pointer duration-200 hover:scale-110" alt="deletar usuario">
+                        </td>
+                    </tr>
+                {{/each}}
+            {{/if}}
+        </thead>
+    </table>
+</main>
+
+
+{{>register/register}}
+
