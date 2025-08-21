@@ -21,15 +21,47 @@
                 <th>ID</th>
                 <th>NOME</th>
                 <th>MEDIA</th>
+                <th>STATUS</th>
             </tr>
         </thead>
-        <tbody id="data-users">
+        <tbody id="data-result">
         </tbody>
     </table>
     <!--CODIGO PARA ATUALIZAR DADOS DINAMICAMENTE SEM PRECISAR CARREGAR PAGINA -->
     <script>
-        
+        const url_api = "http://localhost:3000/api";
 
+        async function getAllResult () {
+            return await fetch(`${url_api}/get-all-resultado`).then(response => response.json());
+        }
 
+        function createTD(text){
+            const td = document.createElement("td");
+            td.innerText = text;
+            return td;
+        }
+
+        function createTr(tds){
+            const tr = document.createElement('tr');
+            for(const td of tds){
+                tr.appendChild(td);
+            }
+            return tr;
+        }
+
+        async function loadDataResult () {
+            const containerData = document.querySelector('#data-result');
+            const allResult = await getAllResult();
+            for(const result of allResult) {
+                const tds = [];
+                for(const data in result){
+                    tds.push(createTD(result[data]));
+                }
+                result.media >= 6 ? tds.push(createTD('Aprovado')) : tds.push(createTD('Reprovado'));
+                containerData.appendChild(createTr(tds));
+            }
+        }
+
+        loadDataResult();
     </script>
 </main>

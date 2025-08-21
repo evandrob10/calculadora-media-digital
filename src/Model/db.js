@@ -1,11 +1,16 @@
 import fs from 'fs';
 
-export function createDB(){
-    fs.writeFile('db/db.json', '', (error)=>{
-        if(error){
+export function createDB() {
+    fs.writeFile('db/db.json', '', (error) => {
+        if (error) {
             console.log('Error ao criar banco de dados: ', error);
-        }else{
+        } else {
             console.log('Banco de dados criado com sucesso.');
         }
     })
+}
+
+export async function getAllData() {
+    const response = fs.readFileSync('db/db.json', 'utf-8');
+    return response ? JSON.parse(response) : false;
 }
