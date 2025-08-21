@@ -10,7 +10,7 @@
                     <option value="aprovados">Aprovados</option>
                     <option value="reprovados">Reprovados</option>
                 </select>
-                <input class="w-[50%] border-1 rounded-md py-1 px-2" type="text" placeholder="Pesquisar por nome...">
+                <input id="filter_seach" class="w-[50%] border-1 rounded-md py-1 px-2" type="text" placeholder="Pesquisar por nome...">
             </div>
 
         </div>
@@ -90,6 +90,28 @@
             })
         }
 
+        //FILTRO DE PESQUISAR
+        async function filter_seach(){
+            const inputText = document.querySelector('#filter_seach');
+            inputText.addEventListener('change', async (event)=> {
+                const inputText = event.target.value;
+                if(inputText) {
+                    console.log(inputText)
+                    const allResult = await getAllResult();
+                    const data = allResult.filter((element) => {
+                        let response = false;
+                        for(const el in element) {
+                            if(`${element[el]}`.toLowerCase().includes(inputText.toLowerCase())) response = true;
+                        }
+                        return response;
+                    })
+                    updateTable(data);
+                } else {
+                    loadDataResult ()
+                }
+            })
+        }
+
 
 
         async function loadDataResult (filter, data) { 
@@ -97,8 +119,10 @@
             const allResult = await getAllResult();
             //CARREGAR DADOS:
             updateTable(allResult);
-            //FILTRO:
+            //FILTRO STATUS:
             filter_status ();
+            //FILTRO PESQUISAR:
+            filter_seach();
         }
         
         
