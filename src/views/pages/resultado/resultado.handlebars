@@ -63,9 +63,7 @@
             //CRIA OS ELEMENTOS:
             for(const datas of response) {
                 const tds = [];
-                for(const data in datas){
-                    tds.push(createTD(datas[data]));  
-                }
+                for(const data in datas) tds.push(createTD(datas[data]));
                 datas.media >= 6 ? tds.push(createTD('Aprovado')) : tds.push(createTD('Reprovado'));
                 //INCLUIR NA VIEW OS ELEMENTOS:
                 containerDataResult.appendChild(createTr(tds));
