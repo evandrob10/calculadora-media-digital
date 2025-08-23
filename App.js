@@ -1,6 +1,7 @@
 //CONFIG EXPRESS
 import express from "express";
 const App = express();
+App.use(express.json());
 App.use(express.static('./public'));
 //CONFIG VARIVEL DE AMBIENTE
 import "dotenv/config";
@@ -11,7 +12,7 @@ App.set('view engine', 'handlebars');
 App.set('views', './src/views');
 //INICIALIZAÇÃO DB:
 import fs from 'fs';
-import { createDB } from "./src/Model/db.js";
+import { createDB } from "./src/Model/ModelBasic.js";
 //VERIFICAR SE EXISTE DB:
 const data = fs.existsSync('db/db.json');
 if (!data) createDB(); // CRIA CASO NÃO EXISTE

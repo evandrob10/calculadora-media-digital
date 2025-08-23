@@ -1,7 +1,7 @@
 <main>
     <div class="mx-auto w-[50%] flex items-center justify-between mb-5">
         <h1>PAINEL ALUNO</h1>
-        <button onclick="viewForm()" type="button" class="mr-2 bg-black text-white py-2 px-3 rounded-2xl font-bold cursor-pointer duration-200 hover:scale-110">CADASTRAR</button>
+        <button onclick="viewRegister()" type="button" class="mr-2 bg-black text-white py-2 px-3 rounded-2xl font-bold cursor-pointer duration-200 hover:scale-110">CADASTRAR</button>
     </div>
     <table class="mx-auto w-[50%]">
         <thead>
@@ -25,7 +25,7 @@
                         </td>
                         <td>
                             <img src="./img/delete.svg" class="w-[30px] cursor-pointer duration-200 hover:scale-110 inline-block mr-1" title="deletar usuario" alt="deletar usuario">
-                            <img src="./img/edit.svg" class="w-[25px] cursor-pointer duration-200 hover:scale-110 inline-block" title="editar notas" alt="editar notas">
+                            <img onClick="viewForm()" src="./img/edit.svg" class="w-[25px] cursor-pointer duration-200 hover:scale-110 inline-block" title="editar notas" alt="editar notas">
                         </td>
                     </tr>
                 {{/each}}
@@ -33,7 +33,6 @@
         </thead>
     </table>
 </main>
-
-
 {{>register/register}}
+{{>media/media}}
 

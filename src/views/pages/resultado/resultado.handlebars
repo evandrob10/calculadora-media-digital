@@ -31,11 +31,11 @@
     <script>
         const containerDataResult = document.querySelector('#data-result');
         //URL BASE:
-        const url_api = "http://localhost:3000/api";
+        const url_api = "http://localhost:3000";
 
         //PEGAR DADOS:
         async function getAllResult () {
-            return await fetch(`${url_api}/get-all-resultado`).then(response => response.json());
+            return await fetch(`${url_api}/get-all-result`).then(response => response.json());
         }
 
         function createTD(text){
