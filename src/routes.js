@@ -1,4 +1,4 @@
-import ControllerRegister from './Controller/ControllerRegister.js';
+import ControllerStudents from './Controller/ControllerStudents.js';
 import ControllerResult from './Controller/ControllerResult.js';
 
 export default class Routes{
@@ -8,7 +8,7 @@ export default class Routes{
         this.initRoutes();
         this.controller = {
             result: new ControllerResult(App),
-            register: new ControllerRegister(App),
+            students: new ControllerStudents(App),
         }
     }
 
@@ -16,24 +16,23 @@ export default class Routes{
         this.App.get('/', async (req, res) => {
             return this.controller.result.pageResult(req, res);
         })
-        this.App.get('/alunos', async (req, res) => {
-            return this.controller.result.pageStudents(req, res);
-        })
+
         this.App.get('/get-all-result', async (req, res) => {
             return await this.controller.result.getAllResult(req, res);
         })
-        this.App.post('/register', async (req, res) => {
-            return await this.controller.register.register(req, res);
+        //MODULE ALUNO
+        this.App.get('/aluno', async (req, res) => {
+            return this.controller.result.pageStudents(req, res);
         })
-        this.App.delete('/delete', async (req, res) => {
-            return await this.controller.register.delete(req, res);
-        });
-
-
-
-
-        
-        
+        this.App.post('/aluno', async (req, res) => {
+            return await this.controller.students.register(req, res);
+        })
+        this.App.post('/aluno/media/:id', async (req, res) =>{
+            return await this.controller.students.media(req,res);
+        })
+        this.App.delete('/aluno', async (req, res) => {
+            return await this.controller.students.delete(req, res);
+        });  
     }
 
 

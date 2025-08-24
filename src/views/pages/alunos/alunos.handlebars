@@ -25,7 +25,7 @@
                         </td>
                         <td>
                             <img onClick="deleteUser({{id}})" src="./img/delete.svg" class="w-[30px] cursor-pointer duration-200 hover:scale-110 inline-block mr-1" title="deletar usuario" alt="deletar usuario">
-                            <img onClick="viewForm()" src="./img/edit.svg" class="w-[25px] cursor-pointer duration-200 hover:scale-110 inline-block" title="editar notas" alt="editar notas">
+                            <img onClick="viewForm({{id}})" src="./img/edit.svg" class="w-[25px] cursor-pointer duration-200 hover:scale-110 inline-block" title="editar notas" alt="editar notas">
                         </td>
                     </tr>
                 {{/each}}
@@ -34,7 +34,7 @@
     </table>
     <script>
         async function deleteUser(id){
-            await fetch(`http://localhost:3000/delete?id=${id}`,{
+            await fetch(`http://localhost:3000/aluno?id=${id}`,{
                 method: 'delete',
                 headers: {
                     'Content-type': 'Application/json',

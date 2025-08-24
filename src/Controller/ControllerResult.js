@@ -3,7 +3,7 @@ import Controller from './Controller.js';
 //MODEL:
 import { getAllData } from '../Model/ModelResult.js';
 
-export default class ControllerResult extends Controller {
+export default class ControllerStudents extends Controller {
 
     pageResult(req, res) {
         res.render('pages/resultado/resultado');

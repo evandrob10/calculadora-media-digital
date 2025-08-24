@@ -2,73 +2,104 @@
     <div class="absolute top-15 right-10 ">
         <button  onclick="viewForm()" type="button" class="text-white cursor-pointer">FECHAR</button>
     </div>
-    <form action="" class="flex flex-col">
+    <form id="formMedia" method="post" class="flex flex-col">
         <div class="flex flex-col" id="containerMainInput">
-
-{{!--             <div class="flex items-center">
-                <input id="name" class="border-2 py-2 px-3 rounded-2xl w-[70vw] mr-2 text-white" type="number" placeholder="0">
-                <button type="button" class="text-2xl p-1 bg-white text-black  rounded-[.2em] font-bold cursor-pointer duration-200 hover:scale-105">+</button>
-            </div>  --}}
         </div>
-        
-        <button type="button" class="mt-3 bg-white text-black py-2 px-3 rounded-2xl font-bold cursor-pointer duration-200 hover:scale-105">CALCULAR MEDIA</button>
+        <button id="submit" type="submit" class="mt-3 bg-[#f1f1f18b] text-[#0000005b] py-2 px-3 rounded-2xl font-bold cursor-not-allowed" disabled>CALCULAR MEDIA</button>
     </form>
-    <!---->
-    <script>
-        function viewForm () {
-            no_scroll();
-            document.querySelector('#conteinerEdit').classList.toggle('hidden');
-        } 
-
-        function createInput(id){
-            const input = document.createElement('input');
-            input.classList.add('border-2','py-2','mb-3','px-3','rounded-2xl','w-[70vw]','mr-2','text-white');
-            input.setAttribute('id',`nota${id}`);
-            input.setAttribute('type','number');
-            input.setAttribute('placeholder','0');
-            return input;
-        }
-
-        //Cria um botão ao lado do input:
-        function createButtonAdd(id){
-            const button = document.createElement('button');
-            button.setAttribute('type','button');
-            button.classList.add('text-2xl', 'p-1', 'bg-white', 'text-black', 'rounded-[.2em]','font-bold','cursor-pointer','duration-200','hover:scale-105');
-            button.innerText = "+";
-            button.setAttribute('id',`0${id}`);
-            return button;
-        }
-        //Cria container dos inputs:
-        function createContainerInput(id){
-            const container = document.createElement('div');
-            container.classList.add('flex', 'items-center');
-            container.setAttribute('id',`container0${id}`);
-            return container;
-        }
-
-        function includeDynamicInput(button,countInput){
-            button.addEventListener('click', ()=>{
-                showInput(countInput);
-                button.remove();
-            })
-        }
-
-        function showInput(id){
-            let countInput = id ? id + 1 : 1;
-            const containerMainInput = document.querySelector('#containerMainInput');
-            const container = createContainerInput(countInput);
-            const input = createInput(countInput);
-            const button = createButtonAdd(countInput);
-            container.appendChild(input);
-            container.appendChild(button);
-            containerMainInput.appendChild(container);
-            if(countInput === 4){
-                button.remove();
-            }
-            includeDynamicInput(button, countInput);
-            
-        }
-        
-        showInput();
-    </script>
 </div>
+<!---->
+<script>
+    async function removeInputs(){
+        document.querySelector('#containerMainInput')
+            .querySelectorAll('div')
+            .forEach(element => element.remove());
+        showInput();      
+    }
+    async function viewForm (id) {
+        const form = document.querySelector('#formMedia');
+        form.setAttribute('action', `/aluno/media/${id}`);
+        no_scroll();
+        await removeInputs();
+        document.querySelector('#conteinerEdit').classList.toggle('hidden');
+        
+    } 
+    function createInput(id){
+        const input = document.createElement('input');
+        input.classList.add('border-2','py-2','mb-3','px-3','rounded-2xl','w-[70vw]','mr-2','text-white');
+        input.setAttribute('id',`nota${id}`);
+        input.setAttribute('name',`nota${id}`);
+        input.setAttribute('type','number');
+        input.setAttribute('placeholder','0');
+        return input;
+    }
+    //Cria um botão ao lado do input:
+    function createButtonAdd(id){
+        const button = document.createElement('button');
+        button.setAttribute('type','button');
+        button.classList.add('text-2xl', 'p-1', 'bg-white', 'text-black', 'rounded-[.2em]','font-bold','cursor-pointer','duration-200','hover:scale-105');
+        button.innerText = "+";
+        button.setAttribute('id',`0${id}`);
+        return button;
+    }
+    //Cria container dos inputs:
+    function createContainerInput(id){
+        const container = document.createElement('div');
+        container.classList.add('flex', 'items-center');
+        container.setAttribute('id',`container0${id}`);
+        return container;
+    }
+
+    function buttonSubmit(show){
+        const buttonSubmit = document.querySelector('#submit');
+        if(show){
+            buttonSubmit.removeAttribute('class');
+            buttonSubmit.removeAttribute('disabled');
+            buttonSubmit.setAttribute('class', 'mt-3 bg-white text-black py-2 px-3 rounded-2xl font-bold cursor-pointer duration-150 hover:scale-110')
+        }else{
+            buttonSubmit.removeAttribute('class');
+            buttonSubmit.setAttribute('disabled', true);
+            buttonSubmit.setAttribute('class', 'mt-3 bg-[#f1f1f18b] text-[#0000005b] py-2 px-3 rounded-2xl font-bold cursor-not-allowed')
+        }
+    }
+
+    function verifyValue(){
+        document.querySelector('#containerMainInput')
+            .querySelectorAll('div')
+            .forEach(element => {
+                const input = element.querySelector('input');
+                input.addEventListener('keyup', (event)=>{
+                    if(event.target.value > 10 || !event.target.value || event.target.value < 0)  {
+                        input.classList.add('border-red-500');
+                        buttonSubmit(false);
+                    }else{
+                        input.classList.remove('border-red-500');
+                        input.classList.add('border-green-500');
+                        buttonSubmit(true);
+                    }
+                })
+            })
+    }        
+    function includeDynamicInput(button,countInput){
+        button.addEventListener('click', ()=>{
+            showInput(countInput);
+            button.remove();
+        })
+        verifyValue();
+    }
+    function showInput(id){
+        let countInput = id ? id + 1 : 1;
+        const containerMainInput = document.querySelector('#containerMainInput');
+        const container = createContainerInput(countInput);
+        const input = createInput(countInput);
+        const button = createButtonAdd(countInput);
+        container.appendChild(input);
+        container.appendChild(button);
+        containerMainInput.appendChild(container);
+        if(countInput === 4){
+            button.remove();
+        }
+        includeDynamicInput(button, countInput);
+    }    
+    showInput();
+</script>
