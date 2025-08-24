@@ -28,7 +28,10 @@ export default class ControllerRegister extends Controller {
     async updateMedia(idUser, media){
         const allData = await getAllData();
         if(idUser && media){
-            allData[idUser - 1].media = media;
+            allData.map(element => {
+                if(element.id === parseInt(idUser)) element.media = media;
+                return element;
+            });
             return await insertMedia(JSON.stringify(allData));
         };
         return {
