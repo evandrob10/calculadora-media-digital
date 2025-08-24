@@ -12,6 +12,18 @@ export async function insertUser(dataJson) {
     }
 }
 
+export async function insertMedia(dataJson){
+    const response = {};
+    try {
+        fs.writeFileSync('db/db.json', dataJson);
+        response.message = "Média inserida com sucesso!"
+    } catch (error) {
+        response.message = `Ocorreu error ao inserir a média: ${error}`
+    } finally {;
+        return response;
+    }
+}
+
 export async function deleteUser(dataJson) {
     const response = {};
     try {
