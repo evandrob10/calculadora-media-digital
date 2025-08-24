@@ -86,7 +86,7 @@
                 if(selectValue) {
                     const allResult = await getAllResult();
                     const data = allResult.filter((element) => {
-                        if(selectValue == "aprovados") return element.media > 5;
+                        if(selectValue == "aprovados") return element.media >= 6;
                         return element.media < 6;
                     })
                     updateTable(data);
