@@ -12,7 +12,7 @@ export default class ControllerRegister extends Controller {
             const allData = await getAllData();
             if (allData && nameUser) {
                 allData.push({
-                    id: (allData[allData.length - 1].id + 1),
+                    id: (allData[allData.length - 1] ? allData[allData.length - 1].id + 1 : 1),
                     name: nameUser,
                     media: false,
                 });
