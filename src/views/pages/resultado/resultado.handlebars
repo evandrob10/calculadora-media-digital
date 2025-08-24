@@ -39,6 +39,14 @@
 
         function createTD(text){
             const td = document.createElement("td");
+            switch(text){
+                case "Aprovado":
+                    td.classList.add('bg-green-500','py-1','px-2', 'rounded-2xl'); 
+                    break;
+                case "Reprovado":
+                    td.classList.add('bg-red-500','py-1','px-2', 'text-yello','rounded-2xl'); 
+                    break;
+            }
             td.innerText = text;
             return td;
         }
