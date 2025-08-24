@@ -24,7 +24,7 @@
                             {{/if}}
                         </td>
                         <td>
-                            <img src="./img/delete.svg" class="w-[30px] cursor-pointer duration-200 hover:scale-110 inline-block mr-1" title="deletar usuario" alt="deletar usuario">
+                            <img onClick="deleteUser({{id}})" src="./img/delete.svg" class="w-[30px] cursor-pointer duration-200 hover:scale-110 inline-block mr-1" title="deletar usuario" alt="deletar usuario">
                             <img onClick="viewForm()" src="./img/edit.svg" class="w-[25px] cursor-pointer duration-200 hover:scale-110 inline-block" title="editar notas" alt="editar notas">
                         </td>
                     </tr>
@@ -32,6 +32,22 @@
             {{/if}}
         </thead>
     </table>
+    <script>
+        async function deleteUser(id){
+            await fetch(`http://localhost:3000/delete?id=${id}`,{
+                method: 'delete',
+                headers: {
+                    'Content-type': 'Application/json',
+                },
+            }).then(reponse => reponse.json())
+                .then(reponse => {
+                    console.log(reponse);
+                    if(reponse.message){
+                        window.location.reload();
+                    }
+                })
+        }
+    </script>
 </main>
 {{>validated/validated}}
 {{>register/register}}

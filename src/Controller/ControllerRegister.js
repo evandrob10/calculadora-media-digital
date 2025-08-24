@@ -2,7 +2,7 @@
 import Controller from './Controller.js';
 //MODEL
 import { getAllData } from '../Model/ModelResult.js';
-import { insertUser } from '../Model/ModelRegister.js';
+import { insertUser, deleteUser } from '../Model/ModelRegister.js';
 
 export default class ControllerRegister extends Controller {
     //ROUTAS CADASTRO
@@ -12,7 +12,7 @@ export default class ControllerRegister extends Controller {
             const allData = await getAllData();
             if (allData && nameUser) {
                 allData.push({
-                    id: (allData.length + 1),
+                    id: (allData[allData.length - 1].id + 1),
                     name: nameUser,
                     media: false,
                 });
@@ -20,8 +20,14 @@ export default class ControllerRegister extends Controller {
                 res.jsonp(response);
             };
         });
-        this.App.post('/delete', async(req , res)=>{
-
-        })
+        this.App.delete('/delete', async (req, res) => {
+            const idUser = req.query.id
+            const allData = await getAllData();
+            const newAllData = allData.filter((value) => value.id != idUser);
+            if (newAllData) return res.jsonp(await deleteUser(JSON.stringify(newAllData)));
+            res.jsonp({
+                message: "Error ao deletar o usuario.",
+            })
+        });
     };
-};
+}
