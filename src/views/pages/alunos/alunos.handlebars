@@ -1,9 +1,9 @@
 <main>
-    <div class="mx-auto w-[50%] flex items-center justify-between mb-5">
-        <h1>PAINEL ALUNO</h1>
-        <button onclick="viewRegister()" type="button" class="mr-2 bg-black text-white py-2 px-3 rounded-2xl font-bold cursor-pointer duration-200 hover:scale-110">CADASTRAR</button>
+    <div class="mx-auto w-[90%] flex items-center justify-between mb-5">
+        <h1 class="">PAINEL ALUNO</h1>
+        <button onclick="viewRegister()" type="button" class="text-[14px] mr-2 bg-black text-white py-1 px-2 rounded-2xl font-bold cursor-pointer duration-200 hover:scale-110">CADASTRAR</button>
     </div>
-    <table class="mx-auto w-[50%]">
+    <table class="mx-auto w-[95%] md:w-[60%]">
         <thead>
             <tr>
                 <th>ID</th>
@@ -20,7 +20,7 @@
                             {{#if media}}
                                 {{media}}
                                 {{else}}
-                                <p class="mx-auto w-[35%] rounded-2xl font-bold bg-[red] text-white py-1 px-2 animate-pulse cursor-pointer">SEM MEDIA</p>
+                                <p class="text-[12px] mx-auto rounded-2xl font-bold bg-[red] text-white p-1 animate-pulse cursor-pointer">SEM MEDIA</p>
                             {{/if}}
                         </td>
                         <td>
@@ -33,6 +33,7 @@
         </thead>
     </table>
 </main>
+{{>validated/validated}}
 {{>register/register}}
 {{>media/media}}
 

@@ -2,7 +2,7 @@
 <main>
     <h1 class="text-center mb-5">RESULTADO</h1>
     <div class="mb-5">
-        <div class="flex items-center w-[40%] mx-auto">
+        <div class="flex items-center w-[95%] mx-auto">
             <h3 class="mr-2">FILTROS:</h3>
             <div class="w-[100%] flex justify-around">
                 <select name="filter-result" class="w-[30%] border-1 mr-2 rounded-md">
@@ -10,12 +10,11 @@
                     <option value="aprovados">Aprovados</option>
                     <option value="reprovados">Reprovados</option>
                 </select>
-                <input id="filter_seach" class="w-[50%] border-1 rounded-md py-1 px-2" type="text" placeholder="Pesquisar por nome...">
+                <input id="filter_seach" class="w-[65%] border-1 rounded-md py-1 px-2" type="text" placeholder="Pesquisar por nome...">
             </div>
-
         </div>
     </div>
-    <table class="mx-auto min-w-[50%]">
+    <table class="mx-auto min-w-[95%]">
         <thead>
             <tr>
                 <th>ID</th>
@@ -24,7 +23,7 @@
                 <th>STATUS</th>
             </tr>
         </thead>
-        <tbody id="data-result">
+        <tbody id="data-result" class="overflow-y-visible">
         </tbody>
     </table>
     <!--CODIGO PARA ATUALIZAR DADOS DINAMICAMENTE SEM PRECISAR CARREGAR PAGINA -->

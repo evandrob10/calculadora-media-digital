@@ -2,6 +2,7 @@
 import Controller from './Controller.js';
 //MODEL
 import { getAllData } from '../Model/ModelResult.js';
+import { insertUser } from '../Model/ModelRegister.js';
 
 export default class ControllerRegister extends Controller {
     //ROUTAS CADASTRO
@@ -15,8 +16,12 @@ export default class ControllerRegister extends Controller {
                     name: nameUser,
                     media: false,
                 });
-                console.log(allData);
+                const response = await insertUser(JSON.stringify(allData));
+                res.jsonp(response);
             };
         });
+        this.App.post('/delete', async(req , res)=>{
+
+        })
     };
 };
