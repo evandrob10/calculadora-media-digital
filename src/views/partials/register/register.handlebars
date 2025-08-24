@@ -1,0 +1,42 @@
+<div id="conteinerForm" class="absolute bg-[#0000008a] h-screen w-[100vw] flex items-center justify-center hidden">
+    <div class="absolute top-15 right-10 ">
+        <button  onclick="viewRegister()" type="button" class="text-white cursor-pointer">FECHAR</button>
+    </div>
+    <form action="" class="flex flex-col">
+        <input id="name-user" class="mb-3 border-2 py-2 px-3 rounded-2xl w-[90vw] mr-2 text-white" type="text" placeholder="Digite nome do aluno...">
+        <button onClick="registerUser()" type="button" class="mr-2 bg-white text-black py-2 px-3 rounded-2xl font-bold cursor-pointer duration-200 hover:scale-110">CADASTRAR</button>
+    </form>
+</div>
+<!---->
+<script>
+    function viewRegister () {
+        no_scroll();
+        document.querySelector('#conteinerForm').classList.toggle('hidden');
+    } 
+    async function registerUser(){
+        
+        const nameUser = document.querySelector('#name-user').value;
+        if(nameUser){
+            await fetch('http://localhost:3000/aluno', {
+                method: 'POST',
+                headers: {
+                    "Content-Type" : "Application/json",
+                },
+                body: JSON.stringify({
+                    name: nameUser,
+                })
+            }).then( response => response.json())
+                .then(response => {
+                    viewRegister();
+                    const processing = document.querySelector('#processing');
+                    if(!response.message) {
+                        no_scroll();
+                        processing.classList.remove('hidden');
+                    } else{
+                        if(processing) processing.classList.add('hidden');
+                        window.location.reload();
+                    }
+                })
+        };  
+    }
+</script>

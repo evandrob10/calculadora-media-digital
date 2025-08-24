@@ -1,7 +1,9 @@
 //CONFIG EXPRESS
 import express from "express";
 const App = express();
+App.use(express.json());
 App.use(express.static('./public'));
+App.use(express.urlencoded({ extended: true }));
 //CONFIG VARIVEL DE AMBIENTE
 import "dotenv/config";
 //CONFIG EXPRESS-HANDLEBARS
@@ -9,17 +11,15 @@ import { engine } from 'express-handlebars';
 App.engine('handlebars', engine());
 App.set('view engine', 'handlebars');
 App.set('views', './src/views');
-//Inicializar DB:
+//INICIALIZAÇÃO DB:
 import fs from 'fs';
-import { createDB } from "./src/Model/db.js";
-//Verificação se banco dados está criado:
+import { createDB } from "./src/Model/ModelBasic.js";
+//VERIFICAR SE EXISTE DB:
 const data = fs.existsSync('db/db.json');
-if (!data) createDB();
+if (!data) createDB(); // CRIA CASO NÃO EXISTE
+//ROUTAS
+import Routes from './src/routes.js';
+new Routes(App);
 
-
-App.get('/', (req, res) => {
-    res.render('pages/resultado/resultado')
-});
-
-//Server
+//SERVER
 App.listen(process.env.PORT, () => console.log(`Aplicação inicializada na url: http://localhost:${process.env.PORT}`))

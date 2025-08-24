@@ -1,0 +1,55 @@
+<main>
+    <div class="mx-auto w-[90%] flex items-center justify-between mb-5">
+        <h1 class="">PAINEL ALUNO</h1>
+        <button onclick="viewRegister()" type="button" class="text-[14px] mr-2 bg-black text-white py-1 px-2 rounded-2xl font-bold cursor-pointer duration-200 hover:scale-110">CADASTRAR</button>
+    </div>
+    <table class="mx-auto w-[95%] md:w-[60%]">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>MEDIA</th>
+                <th>AÇÕES</th>
+            </tr>
+            {{#if response}}
+                {{#each response}}
+                    <tr>
+                        <td>{{id}}</td>
+                        <td class="py-3">{{name}}</td>
+                        <td>
+                            {{#if media}}
+                                {{media}}
+                                {{else}}
+                                <p class="text-[12px] mx-auto rounded-2xl font-bold bg-[red] text-white p-1 animate-pulse cursor-pointer">SEM MEDIA</p>
+                            {{/if}}
+                        </td>
+                        <td>
+                            <img onClick="deleteUser({{id}})" src="./img/delete.svg" class="w-[30px] cursor-pointer duration-200 hover:scale-110 inline-block mr-1" title="deletar usuario" alt="deletar usuario">
+                            <img onClick="viewForm({{id}})" src="./img/edit.svg" class="w-[25px] cursor-pointer duration-200 hover:scale-110 inline-block" title="editar notas" alt="editar notas">
+                        </td>
+                    </tr>
+                {{/each}}
+            {{/if}}
+        </thead>
+    </table>
+    <script>
+        async function deleteUser(id){
+            await fetch(`http://localhost:3000/aluno?id=${id}`,{
+                method: 'delete',
+                headers: {
+                    'Content-type': 'Application/json',
+                },
+            }).then(reponse => reponse.json())
+                .then(reponse => {
+                    console.log(reponse);
+                    if(reponse.message){
+                        window.location.reload();
+                    }
+                })
+        }
+    </script>
+</main>
+{{>validated/validated}}
+{{>register/register}}
+{{>media/media}}
+

@@ -3,13 +3,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Calculadora de Media Aluno:</title>
+        <title>Calculadora de Media Aluno</title>
         <!--GLOBAL CSS-->
         <link rel="stylesheet" href="/css/global.css">
         <!--carregar tailwind css-->
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" defer></script>
+        {{!-- No scrolll --}}
+        <script defer>
+            function no_scroll(){
+                document.querySelector('body').classList.toggle('overflow-hidden');
+            }
+        </script>
     </head>
-    <body class="min-h-screen flex flex-col justify-between"> 
+    <body class="min-h-screen flex flex-col justify-between relative"> 
         {{> header/header}}
         {{{body}}}
         {{> footer/footer}}

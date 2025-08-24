@@ -1,3 +1,12 @@
+main{
+    margin-top: 5vh;
+    min-height: 80vh;
+    margin-bottom: 5vh;
+}
 th{
     border-bottom: 2px solid;
+}
+td{
+    text-align: center;
+    color: #0000008a;
 }
